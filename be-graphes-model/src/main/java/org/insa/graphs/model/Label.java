@@ -1,13 +1,13 @@
 package org.insa.graphs.model;
 
-public class Label {
+public class Label implements Comparable<Label> {
 	
-	protected Node sommet_courant;
-	protected boolean marque ;
-	protected float cout ;
-	protected Node pere ;
+	public Node sommet_courant;
+	public boolean marque ;
+	public double cout ;
+	public Arc pere ;
 	
-	public Label(Node sommet_courant, boolean marque, float cout, Node pere) {
+	public Label(Node sommet_courant, boolean marque, double cout, Arc pere) {
 		super();
 		this.sommet_courant = sommet_courant;
 		this.marque = marque;
@@ -16,9 +16,16 @@ public class Label {
 	}
 
 
-	public float getCost() {
+	public double getCost() {
 		return cout;
 	}
+	
+    @Override
+    public int compareTo(Label other) {
+        return Double.compare(this.getCost(), other.getCost());
+    }
+	
+	
 
 
 }
