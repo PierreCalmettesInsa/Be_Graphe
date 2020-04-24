@@ -34,26 +34,28 @@ public class Path {
     public static Path createFastestPathFromNodes(Graph graph, List<Node> nodes)
             throws IllegalArgumentException {
         List<Arc> arcs = new ArrayList<Arc>();
+        Path path ;
         boolean trouve ;
         if (nodes.size() == 1) {
-        	Path path = new Path(graph,nodes.get(0));
-        	return path ;
+        	path = new Path(graph,nodes.get(0));
         }else {
-        		int id ;
-        		Node nodeCourant ;
-        		Arc arcLePlusCourt ;
-        		Arc arc ;
 		        for (int i = 0; i < nodes.size() -1 ; i++) {
 		        	trouve = false ;
-		        	id = nodes.get(i).getId();
-		        	nodeCourant = graph.getNodes().get(id);
-		        	arcLePlusCourt = nodeCourant.getSuccessors().get(0);
-		        	for (int j = 0 ; j < nodeCourant.getNumberOfSuccessors();j++) {
-		        		arc = nodeCourant.getSuccessors().get(j);
-		        		if (arc.getDestination().equals(nodes.get(i+1))){
+		        	Node nodeCourant = nodes.get(i);
+		        	Node suivant = nodes.get(i+1);
+		        	List<Arc> arcSucc = nodeCourant.getSuccessors();
+		        	if (arcSucc.isEmpty()) {
+		        		throw new IllegalArgumentException();
+		        	}
+		        	Arc arcLePlusCourt = null;
+		        	double tempsMin = -1 ;
+		        	for (int j = 0 ; j < arcSucc.size();j++) {
+		        		Arc arc = arcSucc.get(j);
+		        		if (arc.getDestination().equals(suivant)){
 		        			trouve = true ;
-		        			if (arc.getMinimumTravelTime() < arcLePlusCourt.getMinimumTravelTime()) {
+		        			if (arc.getMinimumTravelTime() < tempsMin || tempsMin == -1) {
 		        				arcLePlusCourt = arc ;
+		        				tempsMin = arc.getMinimumTravelTime() ;
 		        			}
 		        		}
 		        	}
@@ -62,8 +64,9 @@ public class Path {
 		        	else
 		        		arcs.add(i,arcLePlusCourt);
 		        }
+		        path = new Path(graph,arcs);
 	        }
-        return new Path(graph, arcs);
+        return path;
     }
 
     /**
@@ -82,26 +85,28 @@ public class Path {
     public static Path createShortestPathFromNodes(Graph graph, List<Node> nodes)
             throws IllegalArgumentException {
         List<Arc> arcs = new ArrayList<Arc>();
+        Path path ;
         boolean trouve ;
         if (nodes.size() == 1) {
-        	Path path = new Path(graph,nodes.get(0));
-        	return path ;
+        	path = new Path(graph,nodes.get(0));
         }else {
-        		int id ;
-        		Node nodeCourant ;
-        		Arc arcLePlusCourt ;
-        		Arc arc ;
 		        for (int i = 0; i < nodes.size() -1 ; i++) {
 		        	trouve = false ;
-		        	id = nodes.get(i).getId();
-		        	nodeCourant = graph.getNodes().get(id);
-		        	arcLePlusCourt = nodeCourant.getSuccessors().get(0);
-		        	for (int j = 0 ; j < nodeCourant.getNumberOfSuccessors();j++) {
-		        		arc = nodeCourant.getSuccessors().get(j);
-		        		if (arc.getDestination().equals(nodes.get(i+1))){
+		        	Node nodeCourant = nodes.get(i);
+		        	Node suivant = nodes.get(i+1);
+		        	List<Arc> arcSucc = nodeCourant.getSuccessors();
+		        	if (arcSucc.isEmpty()) {
+		        		throw new IllegalArgumentException();
+		        	}
+		        	Arc arcLePlusCourt = null;
+		        	float longMin = -1 ;
+		        	for (int j = 0 ; j < arcSucc.size();j++) {
+		        		Arc arc = arcSucc.get(j);
+		        		if (arc.getDestination().equals(suivant)){
 		        			trouve = true ;
-		        			if (arc.getLength() < arcLePlusCourt.getLength()) {
+		        			if (arc.getLength() < longMin || longMin == -1) {
 		        				arcLePlusCourt = arc ;
+		        				longMin = arc.getLength() ;
 		        			}
 		        		}
 		        	}
@@ -110,8 +115,9 @@ public class Path {
 		        	else
 		        		arcs.add(i,arcLePlusCourt);
 		        }
+		        path = new Path(graph,arcs);
 	        }
-        return new Path(graph, arcs);
+        return path;
     }
 
     /**

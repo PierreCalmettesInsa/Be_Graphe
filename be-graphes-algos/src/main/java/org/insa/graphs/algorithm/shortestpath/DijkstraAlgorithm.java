@@ -2,10 +2,7 @@ package org.insa.graphs.algorithm.shortestpath;
 
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
-
 import org.insa.graphs.algorithm.AbstractSolution.Status;
 import org.insa.graphs.algorithm.utils.BinaryHeap;
 import org.insa.graphs.algorithm.utils.ElementNotFoundException;
@@ -19,6 +16,12 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 
     public DijkstraAlgorithm(ShortestPathData data) {
         super(data);
+    }
+    
+    
+    
+    protected Label initialisationLabel(Node node,boolean bool,double cout,Arc arc) {
+    	return new Label(node,bool,cout,arc);    	
     }
 
     @Override
@@ -38,11 +41,11 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 
         for (Node node: graph.getNodes()) {
         	if (node.equals(data.getOrigin())){
-            	Label label = new Label(node,false,0.0,null);
+            	Label label = initialisationLabel(node,false,0.0,null);
             	labels[node.getId()]=label;
                 tas.insert(labels[node.getId()]);
         	} else {
-        		Label label = new Label(node,false,Double.MAX_VALUE,null);
+        		Label label = initialisationLabel(node,false,Double.MAX_VALUE,null);
         		labels[node.getId()]=label;
         	}
         }
@@ -53,6 +56,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         	Label labelActuel = tas.deleteMin() ;
         	Node nodeActuel = labelActuel.sommet_courant;
         	labelActuel.marque = true ;
+        	
         	
             for (Arc arcSuc: graph.get(nodeActuel.getId()).getSuccessors()) {
             	
@@ -71,7 +75,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
             				tas.remove(labSuc);
             			} catch (ElementNotFoundException e) {
             			}
-            			labSuc.cout = labelActuel.getCost() + data.getCost(arcSuc);
+            			labSuc.setCout(labelActuel.getCost() + data.getCost(arcSuc));
                 		labSuc.pere = arcSuc ;
             			tas.insert(labSuc);
             		}

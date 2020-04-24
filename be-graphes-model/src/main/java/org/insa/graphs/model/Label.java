@@ -4,7 +4,7 @@ public class Label implements Comparable<Label> {
 	
 	public Node sommet_courant;
 	public boolean marque ;
-	public double cout ;
+	protected double cout ;
 	public Arc pere ;
 	
 	public Label(Node sommet_courant, boolean marque, double cout, Arc pere) {
@@ -16,13 +16,23 @@ public class Label implements Comparable<Label> {
 	}
 
 
+	public void setCout(double cout) {
+		this.cout = cout;
+	}
+
+
 	public double getCost() {
 		return cout;
 	}
 	
+	public double getTotalCost() {
+		return cout ;
+	}
+	
+	
     @Override
     public int compareTo(Label other) {
-        return Double.compare(this.getCost(), other.getCost());
+        return Double.compare(this.getTotalCost(), other.getTotalCost());
     }
 	
 	

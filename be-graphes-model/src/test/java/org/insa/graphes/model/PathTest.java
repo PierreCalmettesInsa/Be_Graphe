@@ -228,6 +228,12 @@ public class PathTest {
         assertEquals(null, path.getOrigin());
         assertEquals(0, path.getArcs().size());
         assertTrue(path.isEmpty());
+        
+        path = Path.createShortestPathFromNodes(graph, Arrays.asList(new Node[] { nodes[0], nodes[2] }));
+        assertEquals(nodes[0], path.getOrigin());
+        assertEquals(nodes[2], path.getDestination());
+        assertEquals(1, path.getArcs().size());   
+        
     }
 
     @Test(expected = IllegalArgumentException.class)

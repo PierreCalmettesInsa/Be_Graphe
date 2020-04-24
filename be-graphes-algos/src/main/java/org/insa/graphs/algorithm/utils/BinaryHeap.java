@@ -117,6 +117,19 @@ public class BinaryHeap<E extends Comparable<E>> implements PriorityQueue<E> {
             }
         }
     }
+    
+    
+    public boolean isValid() {
+    	
+    	
+    	
+    	return true ;
+    	
+    }
+    
+    
+    
+    
 
     @Override
     public boolean isEmpty() {
