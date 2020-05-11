@@ -119,13 +119,27 @@ public class BinaryHeap<E extends Comparable<E>> implements PriorityQueue<E> {
     }
     
     
-    public boolean isValid() {
+   public boolean isValid() {
+	   for (int i = 0; i<=(this.size()-2)/2;i++) {
+		   
+		   //father
+		   E father = this.array.get(i) ;
+		   
+		   //left
+		   if (father.compareTo(this.array.get(indexLeft(i))) > 0) {
+			   return false ;
+		   }
+	   
+		   //right
+		   if (indexLeft(i)+1 <this.size() && father.compareTo(this.array.get(indexLeft(i)+1)) > 0 ) {
+			   return false ;
+		   }
+	   
+	   }
     	
+	  return true ;
     	
-    	
-    	return true ;
-    	
-    }
+   }
     
     
     

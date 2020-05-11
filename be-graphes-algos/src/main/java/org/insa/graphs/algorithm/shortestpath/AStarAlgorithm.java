@@ -5,6 +5,7 @@ import org.insa.graphs.model.Label;
 import org.insa.graphs.model.Node;
 import org.insa.graphs.model.LabelStar;
 import org.insa.graphs.model.Point;
+import org.insa.graphs.algorithm.AbstractInputData;
 
 public class AStarAlgorithm extends DijkstraAlgorithm {
 
@@ -14,7 +15,12 @@ public class AStarAlgorithm extends DijkstraAlgorithm {
     
     @Override
     protected Label initialisationLabel(Node node,boolean bool,double cout,Arc arc) {
-    	double coutEstime = Point.distance(node.getPoint(),getInputData().getDestination().getPoint());
+    	double coutEstime ;
+    	if (getInputData().getMode() == AbstractInputData.Mode.LENGTH) {
+    		coutEstime = Point.distance(node.getPoint(),getInputData().getDestination().getPoint());
+    	}else {
+    		coutEstime = Point.distance(node.getPoint(),getInputData().getDestination().getPoint())/getInputData().getMaximumSpeed();
+    	}
     	return new LabelStar(node,bool,cout,arc,coutEstime);    	
     }
     

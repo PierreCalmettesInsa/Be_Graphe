@@ -56,12 +56,15 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         	Label labelActuel = tas.deleteMin() ;
         	Node nodeActuel = labelActuel.sommet_courant;
         	labelActuel.marque = true ;
-        	
-        	
+        	//System.out.println(labelActuel.getTotalCost());
+        	//System.out.println(nodeActuel.getNumberOfSuccessors());
+        	//System.out.println(tas.isValid());
             for (Arc arcSuc: graph.get(nodeActuel.getId()).getSuccessors()) {
             	
             	notifyNodeReached(arcSuc.getDestination());
         		
+            	
+            	
                 // Small test to check allowed roads...
                 if (!data.isAllowed(arcSuc)) {
                     continue;
@@ -99,9 +102,15 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 			}
             
             Collections.reverse(arcs);
-            
+            Path path = new Path(graph,arcs);
             // Create the final solution.
-            solution = new ShortestPathSolution(data, Status.OPTIMAL, new Path(graph, arcs));    
+            solution = new ShortestPathSolution(data, Status.OPTIMAL, path);    
+            //System.out.println(path.isValid());
+            
+            //if (Math.round(labels[data.getDestination().getId()].getCost()) == Math.round(solution.getPath().getLength())) {
+            	 // System.out.println("Cout du label destination égal à la longueur du path.");
+            	//}
+            
             
         }
         
