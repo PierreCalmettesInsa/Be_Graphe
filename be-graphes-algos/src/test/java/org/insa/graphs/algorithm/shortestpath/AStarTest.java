@@ -1,11 +1,12 @@
 package org.insa.graphs.algorithm.shortestpath;
 
 
-public class DijkstraTest extends ShortestPathTest{
+
+public class AStarTest extends ShortestPathTest{
 	
 	@Override
 	public ShortestPathSolution run(ShortestPathData data) {
-		return new DijkstraAlgorithm(data).doRun();
+		return new AStarAlgorithm(data).doRun();
 	}
 	
 
