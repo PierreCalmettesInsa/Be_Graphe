@@ -21,7 +21,15 @@ import org.insa.graphs.model.Node;
 public abstract class ShortestPathTest {
 	
 
-
+/*test avec oracle
+ * Sans oracle il aurait fallu :
+ * comparer les propriétés du graphe
+ * comparer les distances des chemins les plus court en distance et en temps, dist du plus court en dist < dist du plus court en temps
+ * comparer les temps des chemins les plus court en distance et en temps, temps du plus court en dist > temps du plus court en temps
+*/
+/* Dijkstra a de meilleures performances que A* lorsque il n'y a pas de routes possibles entre les deux nodes, A* met plus de temps à
+ * le voir.
+ */
 
 	private static ShortestPathData data1;
 	private static ShortestPathData data2;
@@ -168,5 +176,6 @@ public abstract class ShortestPathTest {
 		double resultBellman = (new BellmanFordAlgorithm(data10).run().getPath().getMinimumTravelTime());
 		assertEquals((long)((run(data10)).getPath().getMinimumTravelTime()),(long)(resultBellman));
     }
+	
 	
 }
