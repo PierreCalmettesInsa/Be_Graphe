@@ -19,7 +19,7 @@ public class AStarAlgorithm extends DijkstraAlgorithm {
     	if (getInputData().getMode() == AbstractInputData.Mode.LENGTH) {
     		coutEstime = Point.distance(node.getPoint(),getInputData().getDestination().getPoint());
     	}else {
-    		coutEstime = Point.distance(node.getPoint(),getInputData().getDestination().getPoint())/(double)getInputData().getMaximumSpeed();
+    		coutEstime = Point.distance(node.getPoint(),getInputData().getDestination().getPoint())/(double)getInputData().getGraph().getGraphInformation().getMaximumSpeed();
     	}
     	return new LabelStar(node,bool,cout,arc,coutEstime);    	
     }
